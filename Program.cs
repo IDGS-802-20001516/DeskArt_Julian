@@ -5,11 +5,15 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
+    });
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
 
 //Obtenemos la cadena de conexion
 var connectionaString = builder.Configuration.GetConnectionString("cadenaSQL");
@@ -18,7 +22,6 @@ var connectionaString = builder.Configuration.GetConnectionString("cadenaSQL");
 builder.Services.AddDbContext<DeskArtContext>(options => options.UseSqlServer(connectionaString));
 
 //Definimos la nueva politica CORS(CROSS-ORIGIN Resource Sharing) para la API
-
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("NuevaPolitica", app =>
@@ -36,7 +39,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-
 //Activas la nueva politica de los CORS
 app.UseCors("NuevaPolitica");
 
@@ -45,4 +47,3 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
-

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace DecoArtp1.Models;
 
@@ -20,8 +21,10 @@ public partial class Producto
     public string? Precio { get; set; }
 
     public string? Imagen { get; set; }
+    [JsonIgnore]
 
     public virtual ICollection<Recetum> Receta { get; set; } = new List<Recetum>();
+    [JsonIgnore]
 
     public virtual ICollection<VentaProd> VentaProds { get; set; } = new List<VentaProd>();
 }
