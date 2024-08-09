@@ -1,0 +1,6 @@
+@DecoArtp1_HostAddress = http://localhost:5092
+
+GET {{DecoArtp1_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
